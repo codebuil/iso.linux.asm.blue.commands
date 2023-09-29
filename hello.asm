@@ -1668,6 +1668,17 @@ call func
 ;put 2000h:100h in stack to jump to 1000h:100h
 ;call printe
 ;jmp loop1
+mov bx,labeliii
+mov cx,15
+exec45:
+mov al,0
+cs
+mov [bx],al
+inc bx
+dec cx
+cmp cx,0
+jnz exec45
+
 mov bx,kkkkk
 cs
 mov al,[bx]
@@ -1763,8 +1774,8 @@ mm3s dw 0
 label db 13,10,'kernel version 0.06v',13,10,'$' ,0
 labelii db 13,10,"$",0
 labeli db 9,4
-labeliii db 'AUTO     ',13,10,'$' ,0
-labeliiii db "  $",0
+labeliii db 'AUTO',0,0,0,0,10,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,13,10,'$' ,0
+labeliiii db "  $",0,0,0,0,10,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 labelii3 db 13,10,"BLUE>$",0
 label400 db 'run file     $',0
 kkkkk dd 0
