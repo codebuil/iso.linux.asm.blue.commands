@@ -7,6 +7,7 @@ bcc -x -i -L -Md font.c -o font.com
 bcc -x -i -L -Md screen.c -o scr.com
 bcc -x -i -L -Md s12.c -o s12.com
 bcc -x -i -L -Md monitor.c -o mn.com
+bcc -x -i -L -Md clock.c -o clock.com
 nasm hello.asm -o hello.com
 nasm print.asm -o print.com
 nasm auto.asm -o auto.com
