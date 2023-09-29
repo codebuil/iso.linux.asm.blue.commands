@@ -1335,6 +1335,39 @@ vectors:
 	mov ds,ax
 
 ret
+vectorss:
+;----------------------------
+;int 21h define on vector 132
+	mov ax,0
+	mov ds,ax
+	mov ax,vectorsi
+	mov dx,cs
+	mov di,960
+	vectors200:
+	ds
+	mov si,[di]
+	add di,2
+	ds
+	mov bx,[di]
+	add di,2
+;int f0h define on vector 960
+	mov ax,0
+	mov ds,ax
+	mov ax,vectorsi
+	mov dx,cs
+	mov di,132
+	vectors10:
+	ds
+	mov [di],si
+	add di,2
+	ds
+	mov [di],bx
+	add di,2
+	;---------------------------
+	mov ax,cs
+	mov ds,ax
+
+ret
 ;---------------------------
 ;int vector 20h
 vectors20i:
@@ -1513,21 +1546,62 @@ func:
         push cx
         push bx
         push ax
-	mov ah,9
-	mov dx,label400
-;write kernel message
-int 0x21        
-	mov ah,9
-	mov dx,labeliii
-;write kernel message
-int 0x21
-
+mov bx,kkkkk
+mov al,0
+cs
+mov [bx],al
+mov ax,cs
+mov ds,ax
+mov es,ax 
+mov dx,labeliii
+mov ax,cs
+mov es,ax
+mov ax,6
+mov si,labeliii
+int 22h
+jnc func56
+mov bx,kkkkk
+mov al,1
+cs
+mov [bx],al
+jmp func57
+func56:
+push eax
+push si
+mov ax,06000h
+mov es,ax
+mov bx,0100h
+pop si
+pop ecx
+push si
+mov ax,7
+int 22h
+pop si
+mov ax,cs
+mov es,ax
+mov ax,8
+int 22h
+mov ax,cs
+mov es,ax
+mov ax,3
+mov bx,cmds
+mov ax,cs
+mov ds,ax
+mov es,ax 
+func57:
         pop ax
         pop bx
         pop cx
         pop dx
         pop bp
         ret
+        ret
+ret
+cmds db "hello.c32",0
+files db "hello.txt",0
+copys:
+mov ax,0
+int 0x21
 ;--------------------------------------------------------
 exec:
 jmp exec2
@@ -1594,14 +1668,21 @@ call func
 ;put 2000h:100h in stack to jump to 1000h:100h
 ;call printe
 ;jmp loop1
-
-	mov ax,2000h
+mov bx,kkkkk
+cs
+mov al,[bx]
+cmp al,0
+jz exec56
+mov ax,0
+int 0x21
+exec56:
+	mov ax,6000h
 	mov es,ax
 	mov ds,ax
 	mov ss,ax
 	mov ax,0ffffh
 	mov sp,ax
-	mov ax,0x2000
+	mov ax,0x6000
 	push ax
 	mov ax,0x100
 	push ax
@@ -1612,9 +1693,8 @@ call func
 	mov dx,0
 	mov si,0
 	mov di,0
-;jump to 2000h:100h
+;jump to 6000h:100h
 mov ax,0
-int 0x20
 retf
 ;--------------------------------------------------------
 ret
@@ -1686,7 +1766,8 @@ labeli db 9,4
 labeliii db 'AUTO     ',13,10,'$' ,0
 labeliiii db "  $",0
 labelii3 db 13,10,"BLUE>$",0
-label400 db 'run file     ',0
+label400 db 'run file     $',0
+kkkkk dd 0
 segDTA dw 0x9000
 ipsDTA dw 0x8000
 ipsDTAsel dw 0
