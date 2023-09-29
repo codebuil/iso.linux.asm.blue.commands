@@ -1,6 +1,6 @@
 # Iso.linux.asm.blue.command
 
-
+command line than have int 0x21 to normal dos com files
 
 
 
