@@ -1,5 +1,8 @@
 nasm hello.asm -o hello.com
 nasm print.asm -o print.com
+nasm auto.asm -o auto.com
+nasm cls.asm -o cls.com
+nasm exit.asm -o exit.com
 mkdir -p CD_root/isolinux
 mkdir -p CD_root/images
 mkdir -p CD_root/kernel
