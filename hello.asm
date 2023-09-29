@@ -1513,8 +1513,14 @@ func:
         push cx
         push bx
         push ax
-        
-
+	mov ah,9
+	mov dx,label400
+;write kernel message
+int 0x21        
+	mov ah,9
+	mov dx,labeliii
+;write kernel message
+int 0x21
 
         pop ax
         pop bx
@@ -1524,6 +1530,7 @@ func:
         ret
 ;--------------------------------------------------------
 exec:
+jmp exec2
 	mov ax,2000h
 	cs
 	mov [addressld],ax
@@ -1574,6 +1581,7 @@ mloop1:
     add ax,20
     
  ;load COM file into address 2000h:100h
+ exec2:
  push cs
  push cs
  pop ds
@@ -1678,6 +1686,7 @@ labeli db 9,4
 labeliii db 'AUTO     ',13,10,'$' ,0
 labeliiii db "  $",0
 labelii3 db 13,10,"BLUE>$",0
+label400 db 'run file     ',0
 segDTA dw 0x9000
 ipsDTA dw 0x8000
 ipsDTAsel dw 0
