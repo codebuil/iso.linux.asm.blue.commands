@@ -1,3 +1,6 @@
+bcc -c -Md libdos.c -o libdos.a
+bcc -x -i -L -Md key.c -o key.com
+bcc -x -i -L -Md msg.c -o msg.com
 nasm hello.asm -o hello.com
 nasm print.asm -o print.com
 nasm auto.asm -o auto.com
