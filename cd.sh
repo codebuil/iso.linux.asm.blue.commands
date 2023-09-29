@@ -1,3 +1,5 @@
+bcc -c -Md libdos.c -o libdos.a
+bcc -x -i -L -Md hello.c -o hello.com
 mkdir -p CD_root/isolinux
 mkdir -p CD_root/images
 mkdir -p CD_root/kernel
@@ -10,6 +12,5 @@ cp *.com CD_root/isolinux/
 cp *.elf CD_root/isolinux/
 cp *.jpg CD_root/isolinux/
 cp *.menu CD_root/isolinux/
-cp *.txt CD_root/isolinux/
 genisoimage -o myos.iso -input-charset utf-8 -b isolinux/isolinux.bin -no-emul-boot -boot-load-size 4  -boot-info-table ./CD_root 
 
